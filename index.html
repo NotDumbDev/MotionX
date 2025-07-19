@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotionX Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" type="image/x-icon" href="images/FavIcon.ico">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-lua.min.js"></script>
+    <script src="index.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">MotionX <span class="smalltext">- made with lots of love :3</span> </div>
+                <div class="version">MotionX V1.0.3</div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <section class="hero">
+                <h1>MotionX</h1>
+                <p>Extensible Animation Manager for Roblox -- Anything about animations, in one place.</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>Animation Registration</h3>
+                        <p>Register and play animations by name with customizable priorities</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Playback Control</h3>
+                        <p>Pause, resume, and stop animations with dynamic speed adjustment</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>State Tracking</h3>
+                        <p>Track currently playing or paused animations with built-in status methods</p>
+                    </div>
+                </div>
+            </section>
+            <div class="card">
+                <h2 class="card-title">What is MotionX?</h2>
+                <div class="card-body">
+                    <strong>MotionX</strong> is an extensible animation manager built for clean, efficient control of
+                    character animations in Roblox. It simplifies animation workflows with a clear API and built-in
+                    state handling.
+                </div>
+            </div>
+            <div class="tabs">
+                <button class="tab-button active" data-tab="installation"
+                    onclick="switchTab('installation')">Installation</button>
+                <button class="tab-button" data-tab="gettingstarted" onclick="switchTab('gettingstarted')">Getting
+                    Started</button>
+                <button class="tab-button" data-tab="api" onclick="switchTab('api')">API</button>
+            </div>
+            <div id="installation" class="tab-content active">
+                <h2 class="card-title">Installation</h2>
+                <p>You can download MotionX from this <a
+                        href="https://create.roblox.com/store/asset/93724216451819/MotionX">link</a></p>
+                <p>After downloading, drag the Module into <code>StarterPlayerScripts</code> or
+                    <code>StarterCharacterScripts</code>.
+                </p>
+            </div>
+            <div id="gettingstarted" class="tab-content">
+                <h2 class="card-title">Getting Started</h2>
+                <h2 class="section-title">Creating a new Instance</h2><br>
+                <p>After downloading MotionX, let's initialize it so it's ready to use.</p>
+                <p>To use MotionX, you first need to create an instance and connect it to your character. Here's how:
+                </p><br>
+
+                <p><strong>Start by requiring MotionX</strong></p>
+                <pre class="example-code"> <code class="language-lua">
+local MotionX = require(script.Parent.MotionX)
+</code></pre>
+                <p>The <code>.new()</code> method creates a new MotionX Controller for your character.</p><br>
+                <p><strong>After requiring MotionX, we can use
+                        <code><a href="#method-new" data-target-tab="api">.new()</a></code> to crate a new instance.
+                        Before that, make sure you have a character already.</strong></p>
+                <pre class="example-code"> <code class="language-lua">
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+local characterAnimator = MotionX.new(character)
+</code></pre>
+
+                <div class="warning-box">
+                    <div class="box-header">
+                        <span class="material-icons icon">warning</span>
+                        <span>Warning</span>
+                    </div>
+                    <p>Your character must include an
+                        <code><a href="https://create.roblox.com/docs/reference/engine/classes/Animator">Animator</a></code>
+                        , or MotionX will not be able to play animations.
+                    </p>
+                </div><br>
+
+                <h2 class="section-title">Registering an animation</h2><br>
+                <p>Now we can start registering animations, to register a new animation we can use the
+                    <code><a href="#method-registernew" data-target-tab="api">:RegisterNew()</a></code> method.
+                </p>
+
+                <pre class="example-code"> <code class="language-lua">
+local characterAnimator = MotionX.new(character)
+
+characterAnimator:RegisterNew("Jump", 1234567890, Enum.AnimationPriority.Movement)
+</code></pre>
+
+                <div class="info-box">
+                    <div class="box-header">
+                        <span class="material-icons icon">info</span>
+                        <span>Info</span>
+                    </div>
+                    <p>Look at <code><a href="#method-registernew" data-target-tab="api">:RegisterNew()</a></code> to
+                        view the method more in depth. </p>
+
+                </div><br>
+
+                <h2 class="section-title">Playing & Stopping an animation</h2><br>
+                <p>To play an animation use the <code><a href="#method-play" data-target-tab="api">:Play()</a></code>
+                    method. </p>
+                <pre class="example-code"> <code class="language-lua">
+characterAnimator:Play("Jump")
+</code></pre><br>
+                <p>This plays the <code>"Jump"</code> animation once. If you want it to loop, simply pass
+                    <code>true</code> as the second argument:</p>
+                <pre class="example-code"> <code class="language-lua">
+characterAnimator:Play("Jump", true) -- loops the animation
+</code></pre><br>
+
+                <p><strong>Stopping an animation</strong></p>
+                <p>To stop an animation use the <code><a href="#method-stop" data-target-tab="api">:Stop()</a></code>
+                    method.</p>
+                <pre class="example-code"> <code class="language-lua">
+characterAnimator:Stop("Jump")
+</code></pre><br>
+            
+            
+            <h2 class="section-title">Stopping & Resuming an animation</h2><br>
+            <p>To pause an animation use the <code><a href="#method-pause" data-target-tab="api">:Pause()</a></code> method.</p>
+            <pre class="example-code"> <code class="language-lua">
+characterAnimator:Pause("Jump")
+</code></pre><br>
+
+            <p>To resume an animation use the <code><a href="#method-resume" data-target-tab="api">:Resume()</a></code> method.</p>
+            <pre class="example-code"> <code class="language-lua">
+characterAnimator:Resume("Jump")
+</code></pre><br>   
+
+        <div class="tip-box">
+            <div class="box-header">
+                <span class="material-icons icon">lightbulb</span>
+                <span>Tip</span>
+            </div>
+            <p>You can also call :Play() to resume your animation!</p>
+
+        </div><br>
+
+        <h2 class="section-title">Setting the speed of an Animation</h2><br>
+        <p>To set the speed of an animation use the <code><a href="#method-setspeed" data-target-tab="api">:SetSpeed()</a></code> method.</p>
+        <pre class="example-code"> <code class="language-lua">
+characterAnimator:SetSpeed("Jump", 0.3)
+</code></pre><br> 
+
+        <h2 class="section-title">Stopping all animations, Unregistering an animation and cleanup</h2><br>
+        <p><strong>Stopping all animations</strong></p>
+        <p>To stop all animations use the <code><a href="#method-stopall" data-target-tab="api">:StopAll()</a></code> method.</p>
+        <pre class="example-code"> <code class="language-lua">
+characterAnimator:StopAll()
+</code></pre>
+        <p>This will stop all currently running animations.</p><br>
+        <p><strong>Unregistering Animations</strong></p>
+        <p>To un-register an animation use the <code><a href="#method-remove" data-target-tab="api">:Remove()</a></code> method.</p>
+        <pre class="example-code"> <code class="language-lua">
+characterAnimator:Remove("Jump")
+</code></pre>
+        <p>This will un-register the animation.</p><br>
+
+        <p><strong>Cleanup</strong></p>
+        <p>To remove the entire MotionX Instance entirely use the <code><a href="#method-destroy" data-target-tab="api">:Destroy()</a></code> method.</p>
+        <pre class="example-code"> <code class="language-lua">
+characterAnimator:Destroy()
+</code></pre>
+
+        <h2 class="section-title">isPlaying(), isPaused(), getPlaying()</h2><br>
+        <p>All of these methods basically do the same things, they either return <code>true</code> or <code>false</code> depending on the current state</p>
+        <pre class="example-code"> <code class="language-lua">
+--Example usage:
+characterAnimator:isPlaying("Jump") -- returns true if is playing, returns fale is isn't playing
+</code></pre><br>
+        <p>On the other hand, for <code>getPlaying()</code> it returns a table with the names of the animations.</p>
+        <pre class="example-code"> <code class="language-lua">
+--Example usage:
+characterAnimator:getPlaying() -- returns a table with all names of the animations.
+</code></pre><br>
+</div>
+
+
+
+            <div id="api" class="tab-content">
+                <div class="api-search">
+                    <input type="text" id="searchInput" placeholder="Search for a method" />
+                </div>
+
+                <h2 class="card-title">API Reference</h2>
+
+                <h3 id="method-new" class="method-name">.new() <span class="method-modifier constructor">[Constructor]</span> <span class="method-modifier static">[Static]</span> </h3>
+                <br><p>Creates a new instance of MotionX.</p>
+                <div class="params">
+                    <h1>Paramaters</h1>
+                    <div class="param">
+                        <span class="param-name">character</span>
+                        <span class="param-type">Model</span>
+                        <span class="param-desc">The character/rig of what you want to animate.</span>
+
+                    </div>
+                </div>
+                <br><h3 id="method-registernew" class="method-name">:RegisterNew() <span class="method-modifier instance">[Instance]</span> </h3>
+                <br><p>Register a new animation.</p>
+                <div class="params">
+                    <h1>Paramaters</h1>
+                    <div class="param">
+                        <span class="param-name">name</span>
+                        <span class="param-type">string</span>
+                        <span class="param-desc">The name of the animation (cannot duplicate!).</span>
+                    </div>
+                    <div class="param">
+                        <span class="param-name">animationId</span>
+                        <span class="param-type">number</span>
+                        <span class="param-desc">The assetId of the animation.</span>
+                    </div>
+                    <div class="param">
+                        <span class="param-name">priority</span>
+                        <span class="param-type">Enum.AnimationPriority</span>
+                        <span class="param-desc">The priority of the animation (Default is Action). <span class="method-modifier optional">[Optional]</span></span>
+                    </div>
+                </div>
+
+                <br><h3 id="method-remove" class="method-name">:Remove() <span class="method-modifier instance">[Instance]</span> </h3>
+                <br><p>Remove an animation.</p>
+                <div class="params">
+                    <h1>Paramaters</h1>
+                    <div class="param">
+                        <span class="param-name">name</span>
+                        <span class="param-type">string</span>
+                        <span class="param-desc">The name of the animation.</span>
+                    </div>
+                </div>
+
+                <br><h3 id="method-play" class="method-name">:Play() <span class="method-modifier instance">[Instance]</span> </h3>
+                <br><p>Play/Resume an animation.</p>
+                <div class="params">
+                    <h1>Paramaters</h1>
+                    <div class="param">
+                        <span class="param-name">name</span>
+                        <span class="param-type">string</span>
+                        <span class="param-desc">The name of the animation.</span>
+                    </div>
+                    <div class="param">
+                        <span class="param-name">looped</span>
+                        <span class="param-type">boolean</span>
+                        <span class="param-desc">If you want the animation to be looped. <span class="method-modifier optional">[Optional]</span></span>
+                    </div>
+                </div>
+                
+                <br><h3 id="method-stop" class="method-name">:Stop() <span class="method-modifier instance">[Instance]</span> </h3>
+                <br><p>Stop an animation.</p>
+                <div class="params">
+                    <h1>Paramaters</h1>
+                    <div class="param">
+                        <span class="param-name">name</span>
+                        <span class="param-type">string</span>
+                        <span class="param-desc">The name of the animation.</span>
+                    </div>
+                </div>
+
+                <h3 id="method-stopall" class="method-name">:StopAll() <span class="method-modifier instance">[Instance]</span> </h3>
+                <br><p>Stops all animations.</p>
+
+                <br><h3 id="method-pause" class="method-name">:Pause() <span class="method-modifier instance">[Instance]</span> </h3>
+                <br><p>Pause an animation.</p>
+                <div class="params">
+                    <h1>Paramaters</h1>
+                    <div class="param">
+                        <span class="param-name">name</span>
+                        <span class="param-type">string</span>
+                        <span class="param-desc">The name of the animation.</span>
+                    </div>
+                </div>
+
+                <br><h3 id="method-resume" class="method-name">:Resume() <span class="method-modifier instance">[Instance]</span> </h3>
+                <br><p>Resume an animation.</p>
+                <div class="params">
+                    <h1>Paramaters</h1>
+                    <div class="param">
+                        <span class="param-name">name</span>
+                        <span class="param-type">string</span>
+                        <span class="param-desc">The name of the animation.</span>
+                    </div>
+                </div>
+
+                <br><h3 id="method-setspeed" class="method-name">:SetSpeed() <span class="method-modifier instance">[Instance]</span> </h3>
+                <br><p>Changes the playback speed of an animation.</p>
+                <div class="params">
+                    <h1>Paramaters</h1>
+                    <div class="param">
+                        <span class="param-name">name</span>
+                        <span class="param-type">string</span>
+                        <span class="param-desc">The name of the animation.</span>
+                    </div>
+                    <div class="param">
+                        <span class="param-name">speed</span>
+                        <span class="param-type">number</span>
+                        <span class="param-desc">The new playback speed.</span>
+                    </div>
+                </div>
+
+                <br><h3 id="method-destroy" class="method-name">:Destroy() <span class="method-modifier instance">[Instance]</span> </h3>
+                <br><p>Cleanup function.</p>
+
+                <br><h3 id="method-isplaying" class="method-name">:isPlaying() <span class="method-modifier instance">[Instance]</span> <span class="method-modifier readonly">[Read Only]</span> </h3>
+                <br><p>Checks if a animation is playing.</p>
+                <div class="params">
+                    <h1>Paramaters</h1>
+                    <div class="param">
+                        <span class="param-name">name</span>
+                        <span class="param-type">string</span>
+                        <span class="param-desc">The name of the animation.</span>
+                    </div>
+                </div>
+                <div class="returns">
+                    <h1>Returns</h1>
+                    <div class="return">
+                        <span class="return-text"> <code>false</code> or <code>true</code> </span>
+                    </div>
+                </div>
+
+                <br><h3 id="method-ispaused" class="method-name">:isPaused() <span class="method-modifier instance">[Instance]</span> <span class="method-modifier readonly">[Read Only]</span> </h3>
+                <br><p>Checks if a animation is paused.</p>
+                <div class="params">
+                    <h1>Paramaters</h1>
+                    <div class="param">
+                        <span class="param-name">name</span>
+                        <span class="param-type">string</span>
+                        <span class="param-desc">The name of the animation.</span>
+                    </div>
+                </div>
+                <div class="returns">
+                    <h1>Returns</h1>
+                    <div class="return">
+                        <span class="return-text"> <code>false</code> or <code>true</code> </span>
+                    </div>
+                </div>
+
+                <br><h3 id="method-getplaying" class="method-name">:GetPlaying() <span class="method-modifier instance">[Instance]</span> <span class="method-modifier readonly">[Read Only]</span> </h3>
+                <br><p>Returns what animations are playing.</p>
+                <div class="returns">
+                    <h1>Returns</h1>
+                    <div class="return">
+                        <span class="return-text"> Returns a table with 1 or multiple strings </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
