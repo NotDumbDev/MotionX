@@ -189,16 +189,16 @@ characterAnimator:Remove("Jump")
 characterAnimator:Destroy()
 </code></pre>
 
-        <h2 class="section-title">isPlaying(), isPaused(), getPlaying()</h2><br>
+        <h2 class="section-title">isPlaying(), isPaused(), GetPlaying()</h2><br>
         <p>All of these methods basically do the same things, they either return <code>true</code> or <code>false</code> depending on the current state</p>
         <pre class="example-code"> <code class="language-lua">
 --Example usage:
 characterAnimator:isPlaying("Jump") -- returns true if is playing, returns fale is isn't playing
 </code></pre><br>
-        <p>On the other hand, for <code>getPlaying()</code> it returns a table with the names of the animations.</p>
+        <p>On the other hand, for <code>GetPlaying()</code> it returns a table with the names of the animations.</p>
         <pre class="example-code"> <code class="language-lua">
 --Example usage:
-characterAnimator:getPlaying() -- returns a table with all names of the animations.
+characterAnimator:GetPlaying() -- returns a table with all names of the animations.
 </code></pre><br>
 </div>
 
