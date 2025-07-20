@@ -21,7 +21,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">MotionX <span class="smalltext">- made with lots of love :3</span> </div>
-                <div class="version">MotionX V1.0.3</div>
+                <div class="version">MotionX V1.0.4</div>
             </div>
         </div>
     </header>
@@ -59,11 +59,14 @@
                 <button class="tab-button" data-tab="gettingstarted" onclick="switchTab('gettingstarted')">Getting
                     Started</button>
                 <button class="tab-button" data-tab="api" onclick="switchTab('api')">API</button>
+                <button class="tab-button" data-tab="changelogs"
+                    onclick="switchTab('changelogs')">Change Logs</button>
             </div>
+
             <div id="installation" class="tab-content active">
                 <h2 class="card-title">Installation</h2>
                 <p>You can download MotionX from this <a
-                        href="https://create.roblox.com/store/asset/105581733695703/MotionX-V103">[link]</a></p>
+                        href="https://create.roblox.com/store/asset/130334609596513/MotionX-V104">[link]</a></p>
                 <p>After downloading, drag the Module into <code>StarterPlayerScripts</code> or
                     <code>StarterCharacterScripts</code>.
                 </p>
@@ -175,7 +178,8 @@ characterAnimator:SetSpeed("Jump", 0.3)
         <pre class="example-code"> <code class="language-lua">
 characterAnimator:StopAll()
 </code></pre>
-        <p>This will stop all currently running animations.</p><br>
+        <p>This will stop all currently running animations.</p>
+        <p>If you want to only stop animations from one group, you can pass the group name as the first paramater.</p><br>
         <p><strong>Unregistering Animations</strong></p>
         <p>To un-register an animation use the <code><a href="#method-remove" data-target-tab="api">:Remove()</a></code> method.</p>
         <pre class="example-code"> <code class="language-lua">
@@ -189,20 +193,35 @@ characterAnimator:Remove("Jump")
 characterAnimator:Destroy()
 </code></pre>
 
-        <h2 class="section-title">isPlaying(), isPaused(), GetPlaying()</h2><br>
+        <h2 class="section-title">isPlaying(), isPaused(), GetPlaying(), GetGroup()</h2><br>
         <p>All of these methods basically do the same things, they either return <code>true</code> or <code>false</code> depending on the current state</p>
         <pre class="example-code"> <code class="language-lua">
 --Example usage:
 characterAnimator:isPlaying("Jump") -- returns true if is playing, returns fale is isn't playing
 </code></pre><br>
-        <p>On the other hand, for <code>GetPlaying()</code> it returns a table with the names of the animations.</p>
+        <p>On the other hand, for <code>GetPlaying()</code> and <code>GetGroup()</code>:</p>
+        <p><strong>GetPlaying - It returns a table with the names of the animations.</strong></p>
         <pre class="example-code"> <code class="language-lua">
 --Example usage:
 characterAnimator:GetPlaying() -- returns a table with all names of the animations.
 </code></pre><br>
+        <p><strong>GetGroup - It returns the group name of an animation.</strong></p>
+        <pre class="example-code"> <code class="language-lua">
+--Example usage:
+characterAnimator:GetGroup("Jump") -- returns the group name (Default is Global).
+</code></pre><br>
+
+        <h2 class="section-title">Binding Markers</h2><br>
+        <p>To bind a marker or multiple markers use the <code><a href="#method-bindmarkers" data-target-tab="api">:BindMarkers()</a></code> method.</p> 
+        <pre class="example-code"> <code class="language-lua">
+characterAnimator:BindMarkers("Jump", {
+	land = function()
+		print("Landed!")
+	end,
+})
+</code></pre>
+
 </div>
-
-
 
             <div id="api" class="tab-content">
                 <div class="api-search">
@@ -240,6 +259,11 @@ characterAnimator:GetPlaying() -- returns a table with all names of the animatio
                         <span class="param-name">priority</span>
                         <span class="param-type">Enum.AnimationPriority</span>
                         <span class="param-desc">The priority of the animation (Default is Action). <span class="method-modifier optional">[Optional]</span></span>
+                    </div>
+                    <div class="param">
+                        <span class="param-name">group</span>
+                        <span class="param-type">string</span>
+                        <span class="param-desc">The name of a group (Default is Global). <span class="method-modifier optional">[Optional]</span></span>
                     </div>
                 </div>
 
@@ -283,6 +307,14 @@ characterAnimator:GetPlaying() -- returns a table with all names of the animatio
 
                 <h3 id="method-stopall" class="method-name">:StopAll() <span class="method-modifier instance">[Instance]</span> </h3>
                 <br><p>Stops all animations.</p>
+                <div class="params">
+                    <h1>Paramaters</h1>
+                    <div class="param">
+                        <span class="param-name">group</span>
+                        <span class="param-type">string</span>
+                        <span class="param-desc">The name of the group you want to stop all animations of.</span>
+                    </div>
+                </div>
 
                 <br><h3 id="method-pause" class="method-name">:Pause() <span class="method-modifier instance">[Instance]</span> </h3>
                 <br><p>Pause an animation.</p>
@@ -303,6 +335,23 @@ characterAnimator:GetPlaying() -- returns a table with all names of the animatio
                         <span class="param-name">name</span>
                         <span class="param-type">string</span>
                         <span class="param-desc">The name of the animation.</span>
+                    </div>
+                </div>
+
+                <br><h3 id="method-bindmarkers" class="method-name">:BindMarkers() <span class="method-modifier instance">[Instance]</span> </h3>
+                <br><p>Binds a marker or multiple markers to a function.</p>
+                <div class="params">
+                    <h1>Paramaters</h1>
+                    <div class="param">
+                        <span class="param-name">name</span>
+                        <span class="param-type">string</span>
+                        <span class="param-desc">The name of the animation.</span>
+                    </div>
+                    <div class="param">
+                        <span class="param-name">callbackTable</span>
+                        <span class="param-type">table</span>
+                        <span class="param-desc">the callback table.</span>
+</code></pre>
                     </div>
                 </div>
 
@@ -367,6 +416,39 @@ characterAnimator:GetPlaying() -- returns a table with all names of the animatio
                         <span class="return-text"> Returns a table with 1 or multiple strings </span>
                     </div>
                 </div>
+
+                <br><h3 id="method-getgroup" class="method-name">:GetGroup() <span class="method-modifier instance">[Instance]</span> <span class="method-modifier readonly">[Read Only]</span> </h3>
+                <br><p>Returns the group of an animation.</p>
+                <div class="params">
+                    <h1>Paramaters</h1>
+                    <div class="param">
+                        <span class="param-name">name</span>
+                        <span class="param-type">string</span>
+                        <span class="param-desc">The name of the animation.</span>
+                    </div>
+                </div>
+                <div class="returns">
+                    <h1>Returns</h1>
+                    <div class="return">
+                        <span class="return-text"> Returns a string </span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="changelogs" class="tab-content">
+                <h2 class="card-title">Change Logs</h2>
+                <h1>20.07.2025</h1><br>
+                <p><strong>New:</strong></p>
+                <p>Added a new groupping feature! (suggested by BreezeOnTheDoor)</p>
+                <p>Added auto-cleanup when you delete your character</p>
+                <p>Added 1 new read only method: '<code><a href="#method-getgroup" data-target-tab="api">:GetGroup()</a></code>'</p>
+                <p>Added 1 new instance method: '<code><a href="#method-bindmarkers" data-target-tab="api">:BindMarkers()</a></code>'</p>
+                <p><strong>Changes:</strong></p>
+                <p>Changed '<code><a href="#method-registernew" data-target-tab="api">:RegisterNew()</a></code>' method to include adding a group</p>
+                <p>Changed '<code><a href="#method-stopall" data-target-tab="api">:GetGroup()</a></code>' method to include a group paramater for stopping all animations in a group.</p>
+                
+                <br><h1>19.07.2025</h1><br>
+                <p>Release day!</p>
             </div>
         </div>
     </main>
