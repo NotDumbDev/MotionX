@@ -17,4 +17,4 @@ Documentation: [Documentation](https://notdumbdev.github.io/MotionX/)
 
 Marketplace Item: [Asset](https://create.roblox.com/store/asset/111987786866952)
 
-Wally: [Package]()
+Wally: [Package](https://wally.run/package/notdumbdev/motionx?version=1.0.5)
