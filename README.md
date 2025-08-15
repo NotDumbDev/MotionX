@@ -13,6 +13,8 @@
     
 Documentation & Source:
 ===========================================================================
-Documentation: MotionX [Documentation](https://notdumbdev.github.io/MotionX/)
+Documentation: [Documentation](https://notdumbdev.github.io/MotionX/)
+
 Marketplace Item: [Asset](https://create.roblox.com/store/asset/111987786866952)
+
 Wally: [Package]()
