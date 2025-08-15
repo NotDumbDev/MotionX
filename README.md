@@ -1,6 +1,4 @@
-<img width="256" height="256" alt="MotionX" src="https://github.com/user-attachments/assets/83926442-658a-41cd-aff9-2b8cfefbb002" />
-
-MotionX - a clean & Extensible Animation Manager.
+## MotionX - a clean & Extensible Animation Manager.
 
 What is MotionX?
     MotionX was made to resolve one thing:
