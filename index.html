@@ -28,7 +28,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">MotionX <span class="smalltext">- made with lots of love :3</span> </div>
-                <div class="version">MotionX V1.0.4</div>
+                <div class="version">MotionX V1.0.5</div>
             </div>
         </div>
     </header>
@@ -72,11 +72,14 @@
 
             <div id="installation" class="tab-content active">
                 <h2 class="card-title">Installation</h2>
-                <p>You can download MotionX from this <a
-                        href="https://create.roblox.com/store/asset/130334609596513/MotionX-V104">[link]</a></p>
-                <p>After downloading, drag the Module into <code>StarterPlayerScripts</code> or
-                    <code>StarterCharacterScripts</code>.
-                </p>
+                    <h2>Roblox Installation</h2>
+                    <p>You can download MotionX from this <a
+                        href="https://create.roblox.com/store/asset/111987786866952">[link]</a></p>
+                    <p>After downloading, drag the Module into <code>Replicated Storage</code></p><br>
+                    <h2>Rojo/Wally Installation</h2>
+                    <p>To install MotionX Using Wally you have to add MotionX to your <code>dependencies</code> list inside your <code>wally.toml</code> file.</p>
+                    <p>And then you can require it just any other module from wally. </p>
+                    <p>Wally Package: <a href="https://wally.run/package/notdumbdev/motionx?version=1.0.5">[link]</a></p>
             </div>
             <div id="gettingstarted" class="tab-content">
                 <h2 class="card-title">Getting Started</h2>
@@ -87,13 +90,13 @@
 
                 <p><strong>Start by requiring MotionX</strong></p>
                 <pre class="example-code"> <code class="language-lua">
-local MotionX = require(script.Parent.MotionX)
+local MotionX = require(path.to.MotionX)
 </code></pre>
                 <p>The <code>.new()</code> method creates a new MotionX Controller for your character.</p><br>
                 <p><strong>After requiring MotionX, we can use
                         <code><a href="#method-new" data-target-tab="api">.new()</a></code> to crate a new instance.
                         Before that, make sure you have a character already.</strong></p>
-                <pre class="example-code"> <code class="language-lua">
+<pre class="example-code"> <code class="language-lua">
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
@@ -111,6 +114,15 @@ local characterAnimator = MotionX.new(character)
                         , or MotionX will not be able to play animations.
                     </p>
                 </div><br>
+
+                <p>If you need to get a MotionX Instance from another script, you can use <code><a href="#method-get" data-target-tab="api">.Get()</a></code> to get the instance.</p>
+<pre class="example-code"> <code class="language-lua">
+--animation script
+local characterAnimator = MotionX.new(character)
+--other script
+local animator = MotionX.Get(character)
+</code></pre><br>
+
 
                 <h2 class="section-title">Registering an animation</h2><br>
                 <p>Now we can start registering animations, to register a new animation we can use the
@@ -228,6 +240,17 @@ characterAnimator:BindMarkers("Jump", {
 })
 </code></pre>
 
+        <h2 class="section-title">Getting all animations</h2><br>
+        <p>If you want to get all currently registered animations, you will have to use <code><a href="#method-getallanimations" data-target-tab="api">:GetAllAnimations()</a></code> </p>
+        <p>Optionally, you can pass a Group as the first paramater and it will return all animations in that group.</p>
+        <pre class="example-code">
+<code class="language-lua">
+local globalAnimations = characterAnimator:GetAllAnimations()
+local movementAnimations = characterAnimator:GetAllAnimations("Movement")
+print(globalAnimations) -- will print all animations
+print(movementAnimations) -- will print all movement animations
+</code>
+</pre>
 </div>
 
             <div id="api" class="tab-content">
@@ -248,6 +271,24 @@ characterAnimator:BindMarkers("Jump", {
 
                     </div>
                 </div>
+
+                <br><h3 id="method-get" class="method-name">.Get() <span class="method-modifier instance">[Instance]</span> <span class="method-modifier readonly">[Read Only]</span> </h3>
+                <br><p>Returns the constructor of a character.</p>
+                <div class="params">
+                    <h1>Paramaters</h1>
+                    <div class="param">
+                        <span class="param-name">character</span>
+                        <span class="param-type">Model</span>
+                        <span class="param-desc">The character/rig</span>
+                    </div>
+                </div>
+                <div class="returns">
+                    <h1>Returns</h1>
+                    <div class="return">
+                        <span class="return-text"> Returns the MotionX Instance. </span>
+                    </div>
+                </div>
+
                 <br><h3 id="method-registernew" class="method-name">:RegisterNew() <span class="method-modifier instance">[Instance]</span> </h3>
                 <br><p>Register a new animation.</p>
                 <div class="params">
@@ -445,11 +486,36 @@ characterAnimator:BindMarkers("Jump", {
                         <span class="return-text"> Returns a string </span>
                     </div>
                 </div>
+
+                <br><h3 id="method-getallanimations" class="method-name">:GetAllAnimations() <span class="method-modifier instance">[Instance]</span> <span class="method-modifier readonly">[Read Only]</span> </h3>
+                <br><p>Returns the all registered animations.</p>
+                <div class="params">
+                    <h1>Paramaters</h1>
+                    <div class="param">
+                        <span class="param-name">group</span>
+                        <span class="param-type">string</span>
+                        <span class="param-desc">The group of the animations. <span class="method-modifier optional">[Optional]</span> </span>
+                    </div>
+                </div>
+                <div class="returns">
+                    <h1>Returns</h1>
+                    <div class="return">
+                        <span class="return-text"> Returns a table with the name of the animation and the data. </span>
+                    </div>
+                </div>
             </div>
 
             <div id="changelogs" class="tab-content">
                 <h2 class="card-title">Change Logs</h2>
-                <h1>20.07.2025</h1><br>
+                <h1>15.08.2025</h1><br>
+                <p><strong>New:</strong></p>
+                <p>Added a Global Cache.</p>
+                <p>MotionX Is now on Wally.</p>
+                <p>Added 1 new read only method: '<code><a href="#method-get" data-target-tab="api">.Get()</a></code>'</p>
+                <p>Added 1 new read only method: '<code><a href="#method-getallanimations" data-target-tab="api">:GetAllAnimations()</a></code>'</p>
+                <p><strong>Changes</strong></p>
+                <p>Fixed some memory leaks</p>
+                <br><h1>20.07.2025</h1><br>
                 <p><strong>New:</strong></p>
                 <p>Added a new groupping feature! (suggested by BreezeOnTheDoor)</p>
                 <p>Added auto-cleanup when you delete your character</p>
